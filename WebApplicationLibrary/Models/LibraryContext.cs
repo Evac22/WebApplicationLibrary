@@ -24,16 +24,9 @@ namespace WebApplication.Data
         {
             // Определяем отношение один-ко-многим между таблицами Book и Author
             modelBuilder.Entity<Book>()
-                .HasOne(b => b.Author)// Каждая книга имеет одного автора
-                .WithMany(a => a.Books)// У каждого автора может быть множество книг
-                .HasForeignKey(b => b.AuthorId);// В качестве внешнего ключа используется свойство AuthorId
-
-            // Определяем отношение многие-ко-многим между таблицами Author и Book через связующую таблицу
-            modelBuilder.Entity<Author>()
-                .HasMany(a => a.Books)// У каждого автора может быть множество книг
-                .WithOne(b => b.Author)// Каждая книга имеет одного автора
-                .HasForeignKey(b => b.AuthorId); // В качестве внешнего ключа используется свойство AuthorId
-
+                .HasOne(b => b.Author);// Каждая книга имеет одного автора
+       
+           
             // Определяем отношение один-ко-многим между таблицами Borrow и Book
             modelBuilder.Entity<Borrow>()
                 .HasOne(b => b.Book)// Каждая аренда связана с одной книгой

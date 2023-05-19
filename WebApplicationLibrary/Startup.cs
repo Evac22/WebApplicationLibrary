@@ -27,6 +27,7 @@ namespace WebApplicationLibrary
 
             services.AddTransient<ILibraryRepository, LibraryRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddSingleton<ITempDataDictionaryFactory, TempDataDictionaryFactory>();
 
             services.AddMvc();

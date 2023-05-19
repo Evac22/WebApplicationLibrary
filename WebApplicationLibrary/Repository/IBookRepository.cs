@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
 using WebApplicationLibrary.Models;
 
@@ -37,7 +38,7 @@ namespace WebApplicationLibrary.Repositories
 
         public IEnumerable<Book> GetAll()
         {
-            return _context.Books;
+            return _context.Books.Include(book => book.Author);
         }
 
         public Book GetById(int id)

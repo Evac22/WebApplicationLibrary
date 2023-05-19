@@ -27,9 +27,11 @@ namespace WebApplicationLibrary.Controllers
         // метод для получения всех книг в бд
         // Get: api/Books
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
+        public ActionResult<IEnumerable<Book>> GetBooks()
         {
-            return await _context.Books.ToListAsync();
+            var books =  _bookRepository.GetAll().ToList();
+
+            return books;
         }
         // метод для получения книги по id
         // Get: api/Books/5

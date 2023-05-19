@@ -14,7 +14,7 @@
 
                     // Перебор полученных данных и создание элементов списка
                     $.each(data, function (index, book) {
-                        var listItem = $("<li>").text(book.title + " - " + book.authorName);
+                        var listItem = $("<li>").text(book.title + " - " + book.author.firstName + " " + book.author.lastName)
                         $("#bookList").append(listItem);
                     });
                 },

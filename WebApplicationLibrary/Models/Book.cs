@@ -13,7 +13,7 @@ namespace WebApplicationLibrary.Models
         //Основные свойства
         public string Title { get; set; }//название книги
         public DateTime PublicationDate { get; set; }//дата публикации книги
-        public decimal Rating { get; set; }//рейтинг книги
+        public int Rating { get; set; }//рейтинг книги
         public int ReviewsNumber { get; set; }//количество отзывов о книге
 
         //Свойства-навигаторы
