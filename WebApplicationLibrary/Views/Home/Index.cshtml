@@ -1,9 +1,31 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-	<title>Hello, World!</title>
-</head>
-<body>
-	<h1>Hello, World!</h1>
-</body>
-</html>
+﻿<button id="getBooksButton">Получить список книг</button>
+<ul id="bookList"></ul>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#getBooksButton").click(function () {
+            $.ajax({
+                url: "/api/Books",
+                method: "GET",
+                success: function (data) {
+                    // Очистка предыдущего списка книг (если есть)
+                    $("#bookList").empty();
+
+                    // Перебор полученных данных и создание элементов списка
+                    $.each(data, function (index, book) {
+                        var listItem = $("<li>").text(book.title + " - " + book.authorName);
+                        $("#bookList").append(listItem);
+                    });
+                },
+                error: function (error) {
+                    // Обработка ошибок
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+
+
+

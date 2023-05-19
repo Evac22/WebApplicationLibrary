@@ -1,6 +1,10 @@
-﻿
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using WebApplication.Data;
 using WebApplicationLibrary.Repositories;
 
@@ -19,6 +23,7 @@ namespace WebApplicationLibrary
         {
             services.AddDbContext<LibraryContext>(options =>
                 options.UseInMemoryDatabase(databaseName: "Library"));
+            services.AddTransient<LibraryContextInitializer>();
 
             services.AddTransient<ILibraryRepository, LibraryRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
@@ -27,35 +32,39 @@ namespace WebApplicationLibrary
             services.AddMvc();
         }
 
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            var context = serviceProvider.GetService<LibraryContext>();
-            var initializer = new LibraryContextInitializer(context);
-            initializer.SeedAsync();
+            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var libraryContextInitializer = scope.ServiceProvider.GetRequiredService<LibraryContextInitializer>();
+                await libraryContextInitializer.SeedAsync();
+            }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                name: "books",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                    name: "default-books",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
-                 name: "books",
-                pattern: "api/[controller]/{action=GetBooks}/{id?}");
+                    name: "api-books",
+                    pattern: "api/books/{action=GetBooks}/{id?}");
 
                 endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "api/{controller=Home}/{action=Index}/{id?}");
+                    name: "default",
+                    pattern: "api/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
 }
+
