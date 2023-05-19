@@ -71,7 +71,7 @@ namespace WebApplicationLibrary.Controllers
         // метод для обновления информации о книге
         // PUT: api/Books/5
         [HttpPut("{id}")]
-
+        
         public async Task<IActionResult> PutBook(int id, Book book)
         {
             if (id != book.Id)
@@ -130,7 +130,7 @@ namespace WebApplicationLibrary.Controllers
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBook", new { id = book.Id }, book);
+            return CreatedAtAction("GetBook", new {id = book.Id }, book);
         }
         // метод для удаления книги из бд по id
         // DELETE: api/Books/5
@@ -150,8 +150,8 @@ namespace WebApplicationLibrary.Controllers
 
         }
         // метод для проверки наличия книги в бд по id
-        private bool BookExists(int id)
-        {
+        private bool BookExists(int id) 
+        { 
             return _context.Books.Any(e => e.Id == id);
         }
     }
