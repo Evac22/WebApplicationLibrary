@@ -6,6 +6,7 @@ namespace WebApplicationLibrary.Models
     public class Genre
     {
         public int Id { get; set; }//идентификатор жанра книги     
+       
         public string Name { get; set; } //название жанра книги
 
         //атрибут указывает, что свойство Books является обратной ссылкой на навигационное свойство Genre класса Book.

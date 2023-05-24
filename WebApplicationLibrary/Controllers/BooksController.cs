@@ -25,14 +25,15 @@ namespace WebApplicationLibrary.Controllers
         }
 
         // метод для получения всех книг в бд
-        // Get: api/Books
+        // Get: api/Books     
         [HttpGet]
         public ActionResult<IEnumerable<Book>> GetBooks()
         {
-            var books =  _bookRepository.GetAll().ToList();
+            var books = _bookRepository.GetAll().ToList();
 
             return books;
         }
+
         // метод для получения книги по id
         // Get: api/Books/5
         [HttpGet("{id}")]

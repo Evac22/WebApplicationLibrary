@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+﻿
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using WebApplication.Data;
 using WebApplicationLibrary.Repositories;
+using WebApplicationLibrary.Repository;
 
 namespace WebApplicationLibrary
 {
@@ -28,6 +25,8 @@ namespace WebApplicationLibrary
             services.AddTransient<ILibraryRepository, LibraryRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+
             services.AddSingleton<ITempDataDictionaryFactory, TempDataDictionaryFactory>();
 
             services.AddMvc();

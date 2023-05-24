@@ -44,7 +44,7 @@ namespace WebApplication.Data
                  .HasOne(b => b.Genre)//Каждая книга имеет один жанр
                  .WithMany(g => g.Books)// каждый жанр может содержать множество книг
                  .HasForeignKey(b => b.GenreId);
-
+                
             // Настраиваем отношение "один-ко-многим" между сущностями Book и Reservation
             modelBuilder.Entity<Book>()
                 .HasMany(b => b.Reservations)

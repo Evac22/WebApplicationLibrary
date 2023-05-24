@@ -14,7 +14,8 @@
 
                     // Перебор полученных данных и создание элементов списка
                     $.each(data, function (index, book) {
-                        var listItem = $("<li>").text(book.title + " - " + book.author.firstName + " " + book.author.lastName)
+                        var genre = book.genre ? book.genre.name : "Неизвестный жанр";
+                        var listItem = $("<li>").text(book.title + " - " + book.author.firstName + " " + book.author.lastName + " (Жанр: " + genre + ")");
                         $("#bookList").append(listItem);
                     });
                 },
@@ -28,4 +29,30 @@
 </script>
 
 
+<button id="getGenresButton">Получить список жанров</button>
+<ul id="genreList"></ul>
 
+<script>
+    $(document).ready(function () {
+        $("#getGenresButton").click(function () {
+            $.ajax({
+                url: "/api/Genres",
+                method: "GET",
+                success: function (data) {
+                    // Очистка предыдущего списка жанров (если есть)
+                    $("#genreList").empty();
+
+                    // Перебор полученных данных и создание элементов списка
+                    $.each(data, function (index, genre) {
+                        var listItem = $("<li>").text(genre.name);
+                        $("#genreList").append(listItem);
+                    });
+                },
+                error: function (error) {
+                    // Обработка ошибок
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>

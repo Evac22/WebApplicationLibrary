@@ -10,6 +10,7 @@ namespace WebApplicationLibrary.DTO
         public Author Author { get; set; }
         public decimal Rating { get; set; }
         public int ReviewsNumber { get; set; }
+        public Genre Genre { get; set; }
     }
 
 }
