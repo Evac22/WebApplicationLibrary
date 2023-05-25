@@ -14,7 +14,7 @@
 
                     // Перебор полученных данных и создание элементов списка
                     $.each(data, function (index, book) {
-                        var genre = book.genre ? book.genre.name : "Неизвестный жанр";
+                        var genre = book.genre && book.genre.name ? book.genre.name : "Неизвестный жанр";
                         var listItem = $("<li>").text(book.title + " - " + book.author.firstName + " " + book.author.lastName + " (Жанр: " + genre + ")");
                         $("#bookList").append(listItem);
                     });
@@ -26,6 +26,7 @@
             });
         });
     });
+    
 </script>
 
 

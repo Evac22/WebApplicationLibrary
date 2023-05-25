@@ -35,11 +35,15 @@ namespace WebApplicationLibrary.Repositories
                 .ToList();
         }
 
-
         public IEnumerable<Book> GetAll()
         {
-            return _context.Books.Include(book => book.Author);
+            var books = _context.Books
+                            .Include(book => book.Author);
+                            
+            return books;
         }
+
+
 
         public Book GetById(int id)
         {
