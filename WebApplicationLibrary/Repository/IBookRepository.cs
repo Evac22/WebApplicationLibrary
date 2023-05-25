@@ -38,8 +38,8 @@ namespace WebApplicationLibrary.Repositories
         public IEnumerable<Book> GetAll()
         {
             var books = _context.Books
-                            .Include(book => book.Author);
-                            
+                            .Include(book => book.Author)
+                            .Include(book => book.Genre);
             return books;
         }
 

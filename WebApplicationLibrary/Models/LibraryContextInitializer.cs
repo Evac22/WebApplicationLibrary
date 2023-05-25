@@ -40,7 +40,7 @@ public class LibraryContextInitializer
             {
                 var books = new List<Book>
                 {
-                         new Book { Title = "The Great Gatsby", Author = new Author { FirstName = "F. Scott", LastName = "Fitzgerald" }, GenreId = 1 },
+                        new Book { Title = "The Great Gatsby", Author = new Author { FirstName = "F. Scott", LastName = "Fitzgerald" }, GenreId = 1 },
                         new Book { Title = "To Kill a Mockingbird", Author = new Author { FirstName = "Harper", LastName = "Lee" }, GenreId = 2 },
                         new Book { Title = "1984", Author = new Author { FirstName = "George", LastName = "Orwell" }, GenreId = 3 },
                         new Book { Title = "Pride and Prejudice", Author = new Author { FirstName = "Jane", LastName = "Austen" }, GenreId = 4 },
@@ -63,14 +63,11 @@ public class LibraryContextInitializer
 
                 };
 
-                // Связываем книги с соответствующими жанрами
-                foreach (var genre in Genres)
-                {
-                    genre.Books = books.Where(b => b.GenreId == genre.Id).ToList();
-                }
+               
 
                 // добавляем эти данные в базу данных
                 await _context.Books.AddRangeAsync(books);
+                await _context.Genres.AddRangeAsync(Genres);
                 await _context.SaveChangesAsync();
             }
         }

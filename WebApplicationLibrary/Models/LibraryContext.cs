@@ -39,11 +39,11 @@ namespace WebApplication.Data
                 .WithMany(b => b.Books)//у каждого издателя может быть множество книг, связанных с этим издателем,
                 .HasForeignKey(b => b.PublisherId);
 
-            // Определяем отношение один-ко-многим между таблицами Book и Genre
-            modelBuilder.Entity<Book>()
-                 .HasOne(b => b.Genre)//Каждая книга имеет один жанр
-                 .WithMany(g => g.Books)// каждый жанр может содержать множество книг
-                 .HasForeignKey(b => b.GenreId);
+            //// Определяем отношение один-ко-многим между таблицами Book и Genre
+            //modelBuilder.Entity<Book>()
+            //     .HasOne(b => b.Genre)//Каждая книга имеет один жанр
+            //     .WithMany(g => g.Books)// каждый жанр может содержать множество книг
+            //     .HasForeignKey(b => b.GenreId);
                 
             // Настраиваем отношение "один-ко-многим" между сущностями Book и Reservation
             modelBuilder.Entity<Book>()
